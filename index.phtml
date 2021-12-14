@@ -1,0 +1,121 @@
+<?php
+if (isset($_GET['deco']) && $_GET['deco'] === 'true') {
+    session_destroy();
+    header("Location: accueil.php");
+    die();
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8"> <!-- Sa on touche pas -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Sa on touche pas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Sa on touche pas -->
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logo.png">
+    <script src="js/jquery.min.js"></script> <!-- Sa on touche pas -->
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" /> <!-- Sa on touche pas -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css"> <!-- Sa on touche pas -->
+    <link rel="stylesheet" href="css/normalize.css"> <!-- Sa on touche pas -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> <!-- Sa on touche pas -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> <!-- Sa on touche pas -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> <!-- Sa on touche pas -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> <!-- Sa on touche pas -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- Sa on touche pas -->
+    <script src="js/bootstrap.min.js"></script> <!-- Sa on touche pas -->
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css"> <!-- Sa on touche pas -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script> <!-- Sa on touche pas -->
+    <script src="js/jquery.flexslider-min.js"></script> <!-- Sa on touche pas -->
+    <script type="text/javascript" charset="utf-8">
+        $(window).load(function() {
+            $(".flexslider").flexslider();
+        });
+        jQuery(function() {
+            $(function() {
+                $(window).scroll(function() { //Fonction appelée quand on descend la page
+                    if ($(this).scrollTop() > 200) { // Quand on est à 200pixels du haut de page,
+                        $("#scrollUp").css("display", "block"); // Replace à droite de l image
+                    } else {
+                        $("#scrollUp").removeAttr("style"); // Enlève les attributs CSS affectés par javascript
+                    }
+                });
+            });
+        });
+    </script> <!-- Sa on touche pas -->
+    <link rel="stylesheet" href="css/styles.css" type="text/css"> <!-- Sa on touche pas -->
+    <title><?= $title ?></title>
+</head>
+
+<body>
+    <header>
+        <nav id="pc">
+            <ul class="head">
+                <?= estActive($title, "ACCUEIL") ?><a href="accueil.php">ACCUEIL</a></li>
+                <?= estActive($title, "SHOP") ?><a href="shop.php">SHOP</a></li>
+                <?= estActive($title, "PROJET") ?><a href="project.php">PROJET</a></li>
+                <?= estActive($title, "AUTRES") ?><a href="autres.php">AUTRES</a></li>
+                <?php if (isset($_SESSION['signIn']) && $_SESSION['signIn']) { ?>
+                    <li><a href="?deco=true">Deconnexion</a></li>
+                <?php } else { ?>
+                    <?= estActive($title, "LOGIN") ?><a href="login.php">LOGIN</a></li>
+                <?php } ?>
+                <li><a href="cart.php">(0)</a></li>
+            </ul>
+        </nav>
+        <nav id="phone">
+            <a href="accueil.php"><img class="logo" src="img/logo.png" alt="logo"></a>
+            <input type="checkbox" class="burger">
+            <nav>
+                <ul>
+                    <li><a href="accueil.php">Acceuil</a></li>
+                    <li><a href="shop.php">Shop</a></li>
+                    <li><a href="lookbook.php">Lookbook</a></li>
+                    <li><a href="project.php">Projet</a></li>
+                    <?php if (isset($_SESSION['signIn']) && $_SESSION['signIn']) { ?>
+                        <li><a href="?deco=true">Deconnexion</a></li>
+                    <?php } else { ?>
+                        <li><a href="login.php">Login</a></li>
+                    <?php } ?>
+                    <li><a href="cart.php">(0)</a></li>
+                </ul>
+            </nav>
+        </nav>
+    </header>
+    <div id="container">
+        <div class="logo">
+            <a href="accueil.php"><img src="img/logo.png" alt="Logo"></a>
+        </div>
+        <main id="main">
+            <?php require "Views/" . $template . ".phtml"; ?>
+            <!-- Sa on touche pas -->
+            <div id="scrollUp">
+                <a href="#top"><img src="img/to-top.svg" /></a>
+            </div>
+        </main>
+        <footer>
+            <nav>
+                <ul class="tail">
+                    <li><a href="faq.php">FAQ</a></li>
+                    <li><a href="aboutUs.php">About Us</a></li>
+                    <li><a href="livraison.php">Livraison</a></li>
+                    <li><a target="_blank" href="https://www.instagram.com/433/?hl=fr"><i class="fab fa-instagram fa-lg"></i></a></li>
+                    <li><a href="legal.php">Legal notices</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                    <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'mounzei@outlook.fr') { ?>
+                        <li><a href="adminer.php">Je gére mon site</a></li>
+                    <?php } else if (isset($_SESSION['email'])) { ?>
+                        <li><a href="forum.php">Forum</a></li>
+                    <?php } ?>
+                </ul>
+            </nav>
+            <div>
+                <p>
+                    Casper 2021 ® - Site de vente de bijoux.
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+<script src="js/main.js"></script>
+
+</html>

@@ -1,0 +1,23 @@
+<section id="shop">
+    <!--<input type="checkbox" class="burger">-->
+    <?php foreach ($results as $res) {
+        if ($res['stock'] > 0) {
+            $img = explode(',', $res['img']);
+    ?>
+            <div class="div-article">
+                <a href="?article=<?= $res['code'] ?>">
+                    <div class="div-image-article">
+                        <img src="<?= $img['0'] ?>" alt="image bijoux <?= $res['nom'] ?>">
+                    </div>
+                    <div class="div-article-info">
+                        <div class="div-article-info-nom"><?= $res['nom'] ?></div>
+                        <div class="div-article-info-prix"><?= $res['prix'] ?>€</div>
+                    </div>
+                </a>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'mounzei@outlook.fr') { ?>
+                    <a class="supprimer" href="?delete=<?= $res['code'] ?>">Supprimer</a>
+                <?php } ?>
+            </div>
+    <?php }
+    } ?>
+</section>
